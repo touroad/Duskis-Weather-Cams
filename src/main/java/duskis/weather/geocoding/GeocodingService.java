@@ -8,7 +8,7 @@ import retrofit2.http.Query;
 public interface GeocodingService {
     @GET("geo/1.0/direct")
     Single<LocationResult[]> getLocation(
-            @Query(value="q", encoded = false) String q,
+            @Query("q") String q,
             @Query("limit") int limit,
             @Query("appid") String apiKey);
 }
