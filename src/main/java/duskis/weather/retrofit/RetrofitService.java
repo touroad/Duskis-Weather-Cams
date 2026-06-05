@@ -10,6 +10,7 @@ public interface RetrofitService {
     Single<RetrofitResult> getWebcamImages(
             @Query("nearby") String nearby,
             @Query("include") String[] include,
+            @Query("limit") int limit,
             @Header("x-windy-api-key") String apiKey);
 }
 
