@@ -1,13 +1,13 @@
-package duskis.weather.retrofit;
+package duskis.weather.WebCam;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Query;
 
-public interface RetrofitService {
+public interface WebCamService {
     @GET("api/v3/webcams")
-    Single<RetrofitResult> getWebcamImages(
+    Single<WebCamResult> getWebcamImages(
             @Query("nearby") String nearby,
             @Query("include") String[] include,
             @Query("limit") int limit,
