@@ -10,8 +10,6 @@ import java.awt.*;
 
 public class WeatherAppFrame extends JFrame {
     public JLabel inputLabel;
-    public JTextField name;
-    public JPanel picture;
     public JLabel latitudeLabel;
     public JLabel longitudeLabel;
     public JLabel unitLabel;
@@ -40,7 +38,7 @@ public class WeatherAppFrame extends JFrame {
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = 0;
-        name = new JTextField("New York, NY");
+        JTextField name = new JTextField("New York, NY");
         add(name, constraints);
 
         constraints = new GridBagConstraints();
@@ -55,7 +53,7 @@ public class WeatherAppFrame extends JFrame {
         constraints.gridheight = 7;
         constraints.fill = GridBagConstraints.BOTH;
         constraints.weightx = 0.65;
-        picture = new JPanel(new GridLayout(0, 1, 0, 15));
+        JPanel picture = new JPanel(new GridLayout(0, 1, 0, 15));
         JScrollPane scrollPane = new JScrollPane(picture);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -97,7 +95,7 @@ public class WeatherAppFrame extends JFrame {
         constraints.gridx = 1;
         constraints.gridy = 3;
         String[] choices = { "Imperial", "Metric", "Standard" };
-        unitMenu = new JComboBox<>(choices);
+        JComboBox<String> unitMenu = new JComboBox<>(choices);
         add(unitMenu, constraints);
 
         constraints = new GridBagConstraints();
@@ -151,5 +149,7 @@ public class WeatherAppFrame extends JFrame {
         GeocodingService service = new GeocodingServiceFactory().create();
         WeatherService service2 = new WeatherServiceFactory().create();
         WeatherService service3 = new WeatherServiceFactory().create();
+        WeatherAppController weatherAppController = new WeatherAppController(service, service2, service3,
+                name, picture, lat, lon, unitMenu,temp, feels_like,main, description);
     }
 }
