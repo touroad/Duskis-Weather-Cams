@@ -9,6 +9,7 @@ import duskis.weather.weather.WeatherResult;
 import duskis.weather.weather.WeatherService;
 import duskis.weather.weather.WeatherServiceFactory;
 
+/*
 public class Main {
     public static void main(String[] args) {
         GeocodingService geocodingService = new GeocodingServiceFactory().create();
@@ -25,3 +26,4 @@ public class Main {
 
     }
 }
+ */

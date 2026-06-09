@@ -3,6 +3,7 @@ package duskis.weather;
 import com.andrewoid.apikeys.ApiKey;
 import duskis.weather.WebCam.WebCamResult;
 import duskis.weather.WebCam.WebCamService;
+import duskis.weather.WebCam.Webcam;
 import duskis.weather.geocoding.GeocodingService;
 import duskis.weather.geocoding.LocationResult;
 import duskis.weather.weather.Temperature;
@@ -13,6 +14,9 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import javax.swing.*;
+import java.net.URI;
+import java.net.URL;
+import java.util.List;
 
 public class WeatherAppController {
     private final GeocodingService service;
@@ -45,9 +49,10 @@ public class WeatherAppController {
 
     public void doSearch() {
         String locationInput = name.getText();
+        System.out.println(name.getText());
 
         try{
-            ApiKey openweathermap = new ApiKey();
+            ApiKey openweathermap = new ApiKey("openweathermap");
             String keyString = openweathermap.get();
 
             Disposable disposable = service.getLocation(locationInput, 1, keyString)
@@ -65,14 +70,19 @@ public class WeatherAppController {
     }
 
     private void handleResponse(LocationResult[] locationResults) {
+        if(locationResults == null || locationResults.length == 0){
+            System.out.println("error");
+            return;
+        }
+
         lat.setText(String.valueOf(locationResults[0].lat()));
         lon.setText(String.valueOf(locationResults[0].lon()));
 
         try{
-            ApiKey openweathermap = new ApiKey();
+            ApiKey openweathermap = new ApiKey("openweathermap");
             String keyString = openweathermap.get();
 
-            ApiKey windy = new ApiKey();
+            ApiKey windy = new ApiKey("windy");
             String keyString2 = windy.get();
 
             //maybe shouldve just made the choices lowercase, but they look nicer uppercase
@@ -85,7 +95,30 @@ public class WeatherAppController {
             main.setText(String.valueOf(weatherResult.weather().get(0).main()));
             description.setText(weatherResult.weather().get(0).description());
 
-           // WebCamResult webCamResult = service3.getWebcamImages(locationResults[0].lon() + "," + locationResults[0].lon() + ",25", )
+            String[] includes = { "categories,images,location" };
+            WebCamResult webCamResult = service3.getWebcamImages(locationResults[0].lon() + "," + locationResults[0].lon() + ",10", includes, 5, keyString2).blockingGet();
+
+            picture.removeAll();
+            try{
+                List<Webcam> pictureNum = webCamResult.webcam();
+
+                for(int i = 0; i < pictureNum.size(); i++){
+                    Webcam current = pictureNum.get(i);
+                    if(current.webcamImage() != null && current.webcamImage().preview() != null){
+                        URL imgUrl = URI.create(current.webcamImage().preview()).toURL();
+                        ImageIcon imageIcon = new ImageIcon(imgUrl);
+
+                        JLabel pic = new JLabel(imageIcon);
+                        picture.add(pic);
+                    }
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            picture.revalidate();
+            picture.repaint();
+
         }catch (Exception e) {
             e.printStackTrace();
         }

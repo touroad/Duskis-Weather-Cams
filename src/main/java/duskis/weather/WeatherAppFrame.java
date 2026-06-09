@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 
 public class WeatherAppFrame extends JFrame {
     public JLabel inputLabel;
+    public JTextField name;
     public JLabel latitudeLabel;
     public JLabel longitudeLabel;
     public JLabel unitLabel;
@@ -42,7 +43,7 @@ public class WeatherAppFrame extends JFrame {
         constraints = new GridBagConstraints();
         constraints.gridx = 1;
         constraints.gridy = 0;
-        JTextField name = new JTextField("New York, NY");
+        name = new JTextField("New York, NY");
         add(name, constraints);
 
         constraints = new GridBagConstraints();
@@ -101,6 +102,7 @@ public class WeatherAppFrame extends JFrame {
         String[] choices = { "Imperial", "Metric", "Standard" };
         unitMenu = new JComboBox<>(choices);
         add(unitMenu, constraints);
+        //and help for the combo box
 
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
@@ -141,7 +143,7 @@ public class WeatherAppFrame extends JFrame {
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
         constraints.gridy = 7;
-        descriptionLabel = new JLabel("Main Description: ");
+        descriptionLabel = new JLabel("Description: ");
         add(descriptionLabel, constraints);
 
         constraints = new GridBagConstraints();
@@ -154,7 +156,7 @@ public class WeatherAppFrame extends JFrame {
         WeatherService service2 = new WeatherServiceFactory().create();
         WebCamService service3 = new WebCamServiceFactory().create();
         WeatherAppController weatherAppController = new WeatherAppController(service, service2, service3,
-                name, picture, lat, lon, unitMenu,temp, feels_like,main, description);
+                name, picture, lat, lon, unitMenu, temp, feels_like,main, description);
 
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -162,5 +164,10 @@ public class WeatherAppFrame extends JFrame {
                 weatherAppController.doSearch();
             }
         });
+    }
+
+    public static void main(String[] args) {
+        WeatherAppFrame frame = new WeatherAppFrame();
+        frame.setVisible(true);
     }
 }
