@@ -9,7 +9,7 @@ public interface WebCamService {
     @GET("api/v3/webcams")
     Single<WebCamResult> getWebcamImages(
             @Query("nearby") String nearby,
-            @Query("include") String[] include,
+            @Query("include") String include,
             @Query("limit") int limit,
             @Header("x-windy-api-key") String apiKey);
 }

@@ -49,7 +49,7 @@ public class WeatherAppController {
 
     public void doSearch() {
         String locationInput = name.getText();
-        System.out.println(name.getText());
+        System.out.println(locationInput);
 
         try{
             ApiKey openweathermap = new ApiKey("openweathermap");
@@ -95,8 +95,8 @@ public class WeatherAppController {
             main.setText(String.valueOf(weatherResult.weather().get(0).main()));
             description.setText(weatherResult.weather().get(0).description());
 
-            String[] includes = { "categories,images,location" };
-            WebCamResult webCamResult = service3.getWebcamImages(locationResults[0].lon() + "," + locationResults[0].lon() + ",10", includes, 5, keyString2).blockingGet();
+            String includes = "categories,images,location";
+            WebCamResult webCamResult = service3.getWebcamImages(locationResults[0].lat() + "," + locationResults[0].lon() + ",10", includes, 5, keyString2).blockingGet();
 
             picture.removeAll();
             try{
