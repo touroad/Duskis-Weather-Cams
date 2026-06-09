@@ -1,5 +1,7 @@
 package duskis.weather;
 
+import duskis.weather.WebCam.WebCamService;
+import duskis.weather.WebCam.WebCamServiceFactory;
 import duskis.weather.geocoding.GeocodingService;
 import duskis.weather.geocoding.GeocodingServiceFactory;
 import duskis.weather.weather.WeatherService;
@@ -7,6 +9,8 @@ import duskis.weather.weather.WeatherServiceFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class WeatherAppFrame extends JFrame {
     public JLabel inputLabel;
@@ -57,7 +61,7 @@ public class WeatherAppFrame extends JFrame {
         JScrollPane scrollPane = new JScrollPane(picture);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        add(picture, constraints);
+        add(scrollPane, constraints);
         //got help from ai for the scrolling bit
 
         constraints = new GridBagConstraints();
@@ -95,7 +99,7 @@ public class WeatherAppFrame extends JFrame {
         constraints.gridx = 1;
         constraints.gridy = 3;
         String[] choices = { "Imperial", "Metric", "Standard" };
-        JComboBox<String> unitMenu = new JComboBox<>(choices);
+        unitMenu = new JComboBox<>(choices);
         add(unitMenu, constraints);
 
         constraints = new GridBagConstraints();
@@ -148,8 +152,15 @@ public class WeatherAppFrame extends JFrame {
 
         GeocodingService service = new GeocodingServiceFactory().create();
         WeatherService service2 = new WeatherServiceFactory().create();
-        WeatherService service3 = new WeatherServiceFactory().create();
+        WebCamService service3 = new WebCamServiceFactory().create();
         WeatherAppController weatherAppController = new WeatherAppController(service, service2, service3,
                 name, picture, lat, lon, unitMenu,temp, feels_like,main, description);
+
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                weatherAppController.doSearch();
+            }
+        });
     }
 }
