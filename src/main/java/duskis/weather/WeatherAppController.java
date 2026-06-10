@@ -25,11 +25,13 @@ public class WeatherAppController {
     private final JLabel lon;
     private final JComboBox<String> unitMenu;
     private final JLabel temp;
-    private final JLabel feels_like;
+    private final JLabel feelslike;
     private final JLabel main;
     private final JLabel description;
 
-    public WeatherAppController(GeocodingService service, WeatherService service2, WebCamService service3, JTextField name, JPanel picture, JLabel lat, JLabel lon, JComboBox<String> unitMenu, JLabel temp, JLabel feels_like, JLabel main, JLabel description) {
+    public WeatherAppController(GeocodingService service, WeatherService service2, WebCamService service3,
+                                JTextField name, JPanel picture, JLabel lat, JLabel lon, JComboBox<String> unitMenu,
+                                JLabel temp, JLabel feelslike, JLabel main, JLabel description) {
         this.service = service;
         this.service2 = service2;
         this.service3 = service3;
@@ -39,7 +41,7 @@ public class WeatherAppController {
         this.lon = lon;
         this.unitMenu = unitMenu;
         this.temp = temp;
-        this.feels_like = feels_like;
+        this.feelslike = feelslike;
         this.main = main;
         this.description = description;
     }
@@ -87,7 +89,7 @@ public class WeatherAppController {
             WeatherResult weatherResult = service2.getWeather(locationResults[0].lat(), locationResults[0].lon(), unit, keyString).blockingGet();
 
             temp.setText(String.valueOf(weatherResult.main().temp()));
-            feels_like.setText(String.valueOf(weatherResult.main().feels_like()));
+            feelslike.setText(String.valueOf(weatherResult.main().feelslike()));
             main.setText(String.valueOf(weatherResult.weather().get(0).main()));
             description.setText(weatherResult.weather().get(0).description());
 

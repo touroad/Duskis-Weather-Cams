@@ -1,4 +1,6 @@
 package duskis.weather.weather;
 
-public record Temperature(double temp, double feels_like) {
+import com.google.gson.annotations.SerializedName;
+
+public record Temperature(double temp, @SerializedName("feels_like") double feelslike) {
 }

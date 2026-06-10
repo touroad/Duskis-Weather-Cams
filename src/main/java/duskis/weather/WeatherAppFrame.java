@@ -166,8 +166,8 @@ public class WeatherAppFrame extends JFrame {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.insets = new Insets(6, 8, 6, 8);
-        JLabel feels_like = new JLabel();
-        add(feels_like, constraints);
+        JLabel feelslike = new JLabel();
+        add(feelslike, constraints);
 
         constraints = new GridBagConstraints();
         constraints.gridx = 0;
@@ -209,7 +209,7 @@ public class WeatherAppFrame extends JFrame {
         WeatherService service2 = new WeatherServiceFactory().create();
         WebCamService service3 = new WebCamServiceFactory().create();
         WeatherAppController weatherAppController = new WeatherAppController(service, service2, service3,
-                name, picture, lat, lon, unitMenu, temp, feels_like, main, description);
+                name, picture, lat, lon, unitMenu, temp, feelslike, main, description);
 
         searchButton.addActionListener(new ActionListener() {
             @Override
