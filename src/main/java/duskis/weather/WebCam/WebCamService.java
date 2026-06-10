@@ -6,7 +6,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Query;
 
 public interface WebCamService {
-    @GET("api/v3/webcams")
+    @GET("webcams/api/v3/webcams")
     Single<WebCamResult> getWebcamImages(
             @Query("nearby") String nearby,
             @Query("include") String include,

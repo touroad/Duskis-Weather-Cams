@@ -8,6 +8,6 @@ public interface WeatherService {
     @GET("data/2.5/weather")
     Single<WeatherResult> getWeather(@Query("lat") double lat,
                                     @Query("lon") double lon,
-                                    @Query("unit") String unit,
+                                    @Query("units") String units,
                                     @Query("appid") String apiKey);
 }

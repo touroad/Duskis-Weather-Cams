@@ -1,9 +1,7 @@
 package duskis.weather;
 
 import com.andrewoid.apikeys.ApiKey;
-import duskis.weather.WebCam.WebCamResult;
-import duskis.weather.WebCam.WebCamService;
-import duskis.weather.WebCam.Webcam;
+import duskis.weather.WebCam.*;
 import duskis.weather.geocoding.GeocodingService;
 import duskis.weather.geocoding.LocationResult;
 import duskis.weather.weather.Temperature;
@@ -55,7 +53,9 @@ public class WeatherAppController {
             ApiKey openweathermap = new ApiKey("openweathermap");
             String keyString = openweathermap.get();
 
-            Disposable disposable = service.getLocation(locationInput, 1, keyString)
+            System.out.println(openweathermap);
+
+            Disposable disposable = service.getLocation(locationInput + ", US", 1, keyString)
                     // tells Rx to request the data on a background Thread
                     .subscribeOn(Schedulers.io())
                     // tells Rx to handle the response on Swing's main Thread
@@ -90,8 +90,8 @@ public class WeatherAppController {
 
             WeatherResult weatherResult = service2.getWeather(locationResults[0].lat(), locationResults[0].lon(), unit, keyString).blockingGet();
 
-            temp.setText(String.valueOf(weatherResult.temperature().temp()));
-            feels_like.setText(String.valueOf(weatherResult.temperature().feels_like()));
+            temp.setText(String.valueOf(weatherResult.main().temp()));
+            feels_like.setText(String.valueOf(weatherResult.main().feels_like()));
             main.setText(String.valueOf(weatherResult.weather().get(0).main()));
             description.setText(weatherResult.weather().get(0).description());
 
@@ -100,12 +100,16 @@ public class WeatherAppController {
 
             picture.removeAll();
             try{
-                List<Webcam> pictureNum = webCamResult.webcam();
+                List<Webcam> pictureNum = webCamResult.webcams();
 
                 for(int i = 0; i < pictureNum.size(); i++){
-                    Webcam current = pictureNum.get(i);
-                    if(current.webcamImage() != null && current.webcamImage().preview() != null){
-                        URL imgUrl = URI.create(current.webcamImage().preview()).toURL();
+                    Webcam webcam = pictureNum.get(i);
+                    if (webcam == null || webcam.images() == null || webcam.images().current() == null) {
+                        continue;
+                    }
+                    WebCamImage current = webcam.images().current();
+                    if(current.preview() != null){
+                        URL imgUrl = URI.create(current.preview()).toURL();
                         ImageIcon imageIcon = new ImageIcon(imgUrl);
 
                         JLabel pic = new JLabel(imageIcon);
