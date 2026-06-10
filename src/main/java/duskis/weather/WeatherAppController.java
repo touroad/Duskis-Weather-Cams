@@ -4,14 +4,13 @@ import com.andrewoid.apikeys.ApiKey;
 import duskis.weather.WebCam.*;
 import duskis.weather.geocoding.GeocodingService;
 import duskis.weather.geocoding.LocationResult;
-import duskis.weather.weather.Temperature;
-import duskis.weather.weather.Weather;
 import duskis.weather.weather.WeatherResult;
 import duskis.weather.weather.WeatherService;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.URI;
 import java.net.URL;
 import java.util.List;
@@ -47,13 +46,10 @@ public class WeatherAppController {
 
     public void doSearch() {
         String locationInput = name.getText();
-        System.out.println(locationInput);
 
         try{
             ApiKey openweathermap = new ApiKey("openweathermap");
             String keyString = openweathermap.get();
-
-            System.out.println(openweathermap);
 
             Disposable disposable = service.getLocation(locationInput + ", US", 1, keyString)
                     // tells Rx to request the data on a background Thread
@@ -112,7 +108,14 @@ public class WeatherAppController {
                         URL imgUrl = URI.create(current.preview()).toURL();
                         ImageIcon imageIcon = new ImageIcon(imgUrl);
 
-                        JLabel pic = new JLabel(imageIcon);
+                        //ai on making the images wider
+                        Image rawImage = imageIcon.getImage();
+                        int targetWidth = 400;
+                        int targetHeight = -1; // -1 tells Java to calculate height automatically to keep the aspect ratio perfect!
+                        Image scaledImage = rawImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+                        ImageIcon largeIcon = new ImageIcon(scaledImage);
+
+                        JLabel pic = new JLabel(largeIcon);
                         picture.add(pic);
                     }
                 }

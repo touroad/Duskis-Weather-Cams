@@ -12,6 +12,7 @@ public class WebCamServiceFactory {
         var interceptor = new HttpLoggingInterceptor();
         //interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        //dad helped me use the interceptor for debugging
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.windy.com/")
                 // Configure Retrofit to use Gson to turn the Json into Objects
