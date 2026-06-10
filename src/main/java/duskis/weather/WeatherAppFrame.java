@@ -1,7 +1,7 @@
 package duskis.weather;
 
-import duskis.weather.WebCam.WebCamService;
-import duskis.weather.WebCam.WebCamServiceFactory;
+import duskis.weather.webcam.WebCamService;
+import duskis.weather.webcam.WebCamServiceFactory;
 import duskis.weather.geocoding.GeocodingService;
 import duskis.weather.geocoding.GeocodingServiceFactory;
 import duskis.weather.weather.WeatherService;
@@ -24,7 +24,7 @@ public class WeatherAppFrame extends JFrame {
     public JLabel mainLabel;
     public JLabel descriptionLabel;
 
-    public WeatherAppFrame(){
+    public WeatherAppFrame() {
         setSize(600, 800);
         setTitle("Weather App");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -128,7 +128,7 @@ public class WeatherAppFrame extends JFrame {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.anchor = GridBagConstraints.NORTHWEST;
         constraints.insets = new Insets(6, 8, 6, 8);
-        String[] choices = { "Imperial", "Metric", "Standard" };
+        String[] choices = {"Imperial", "Metric", "Standard"};
         unitMenu = new JComboBox<>(choices);
         add(unitMenu, constraints);
         //and help for the combo box
@@ -209,7 +209,7 @@ public class WeatherAppFrame extends JFrame {
         WeatherService service2 = new WeatherServiceFactory().create();
         WebCamService service3 = new WebCamServiceFactory().create();
         WeatherAppController weatherAppController = new WeatherAppController(service, service2, service3,
-                name, picture, lat, lon, unitMenu, temp, feels_like,main, description);
+                name, picture, lat, lon, unitMenu, temp, feels_like, main, description);
 
         searchButton.addActionListener(new ActionListener() {
             @Override

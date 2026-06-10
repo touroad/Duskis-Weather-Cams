@@ -1,4 +1,4 @@
-package duskis.weather.WebCam;
+package duskis.weather.webcam;
 
 import java.util.List;
 

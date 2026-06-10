@@ -1,7 +1,7 @@
 package duskis.weather;
 
 import com.andrewoid.apikeys.ApiKey;
-import duskis.weather.WebCam.*;
+import duskis.weather.webcam.*;
 import duskis.weather.geocoding.GeocodingService;
 import duskis.weather.geocoding.LocationResult;
 import duskis.weather.weather.WeatherResult;
@@ -17,7 +17,7 @@ import java.util.List;
 
 public class WeatherAppController {
     private final GeocodingService service;
-    private final WeatherService  service2;
+    private final WeatherService service2;
     private final WebCamService service3;
     private final JTextField name;
     private final JPanel picture;
@@ -47,7 +47,7 @@ public class WeatherAppController {
     public void doSearch() {
         String locationInput = name.getText();
 
-        try{
+        try {
             ApiKey openweathermap = new ApiKey("openweathermap");
             String keyString = openweathermap.get();
 
@@ -60,13 +60,13 @@ public class WeatherAppController {
                     .subscribe(
                             this::handleResponse,
                             Throwable::printStackTrace);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void handleResponse(LocationResult[] locationResults) {
-        if(locationResults == null || locationResults.length == 0){
+        if (locationResults == null || locationResults.length == 0) {
             System.out.println("error");
             return;
         }
@@ -74,7 +74,7 @@ public class WeatherAppController {
         lat.setText(String.valueOf(locationResults[0].lat()));
         lon.setText(String.valueOf(locationResults[0].lon()));
 
-        try{
+        try {
             ApiKey openweathermap = new ApiKey("openweathermap");
             String keyString = openweathermap.get();
 
@@ -95,16 +95,16 @@ public class WeatherAppController {
             WebCamResult webCamResult = service3.getWebcamImages(locationResults[0].lat() + "," + locationResults[0].lon() + ",10", includes, 5, keyString2).blockingGet();
 
             picture.removeAll();
-            try{
+            try {
                 List<Webcam> pictureNum = webCamResult.webcams();
 
-                for(int i = 0; i < pictureNum.size(); i++){
+                for (int i = 0; i < pictureNum.size(); i++) {
                     Webcam webcam = pictureNum.get(i);
                     if (webcam == null || webcam.images() == null || webcam.images().current() == null) {
                         continue;
                     }
                     WebCamImage current = webcam.images().current();
-                    if(current.preview() != null){
+                    if (current.preview() != null) {
                         URL imgUrl = URI.create(current.preview()).toURL();
                         ImageIcon imageIcon = new ImageIcon(imgUrl);
 
@@ -119,14 +119,14 @@ public class WeatherAppController {
                         picture.add(pic);
                     }
                 }
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
             picture.revalidate();
             picture.repaint();
 
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

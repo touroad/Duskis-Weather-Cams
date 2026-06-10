@@ -1,6 +1,5 @@
-package duskis.weather.WebCam;
+package duskis.weather.webcam;
 
-import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;

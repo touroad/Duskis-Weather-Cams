@@ -1,4 +1,4 @@
-package duskis.weather.WebCam;
+package duskis.weather.webcam;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
