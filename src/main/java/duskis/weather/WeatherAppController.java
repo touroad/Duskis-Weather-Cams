@@ -80,21 +80,25 @@ public class WeatherAppController {
             ApiKey openweathermap = new ApiKey("openweathermap");
             String keyString = openweathermap.get();
 
-            ApiKey windy = new ApiKey("windy");
-            String keyString2 = windy.get();
-
             //maybe shouldve just made the choices lowercase, but they look nicer uppercase
             String unit = unitMenu.getSelectedItem().toString().toLowerCase();
 
-            WeatherResult weatherResult = service2.getWeather(locationResults[0].lat(), locationResults[0].lon(), unit, keyString).blockingGet();
+            WeatherResult weatherResult = service2.getWeather(
+                    locationResults[0].lat(), locationResults[0].lon(), unit, keyString).blockingGet();
 
             temp.setText(String.valueOf(weatherResult.main().temp()));
             feelslike.setText(String.valueOf(weatherResult.main().feelslike()));
             main.setText(String.valueOf(weatherResult.weather().get(0).main()));
             description.setText(weatherResult.weather().get(0).description());
 
+            ApiKey windy = new ApiKey("windy");
+            String keyString2 = windy.get();
+
+
             String includes = "categories,images,location";
-            WebCamResult webCamResult = service3.getWebcamImages(locationResults[0].lat() + "," + locationResults[0].lon() + ",10", includes, 5, keyString2).blockingGet();
+            WebCamResult webCamResult = service3.getWebcamImages(
+                    locationResults[0].lat() + "," + locationResults[0].lon() + ",10", includes, 5,
+                    keyString2).blockingGet();
 
             picture.removeAll();
             try {
@@ -113,7 +117,8 @@ public class WeatherAppController {
                         //ai on making the images wider
                         Image rawImage = imageIcon.getImage();
                         int targetWidth = 400;
-                        int targetHeight = -1; // -1 tells Java to calculate height automatically to keep the aspect ratio perfect!
+                        int targetHeight = -1;
+                        // -1 tells Java to calculate height automatically to keep the aspect ratio perfect!
                         Image scaledImage = rawImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
                         ImageIcon largeIcon = new ImageIcon(scaledImage);
 
