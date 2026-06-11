@@ -78,7 +78,7 @@ public class WeatherAppController {
         lat.setText(String.valueOf(latval));
         lon.setText(String.valueOf(lonval));
 
-        //using something similar to dispose above, a consumer which handles more than one call, and uses the accept method
+        //using something similar to dispose above, a consumer
         try {
             ApiKey openweathermap = new ApiKey("openweathermap");
             String keyString = openweathermap.get();
@@ -136,8 +136,9 @@ public class WeatherAppController {
                                         Image rawImage = imageIcon.getImage();
                                         int targetWidth = 400;
                                         int targetHeight = -1;
-                                        // -1 tells Java to calculate height automatically to keep the aspect ratio perfect!
-                                        Image scaledImage = rawImage.getScaledInstance(targetWidth, targetHeight, Image.SCALE_SMOOTH);
+                                        // -1 tells Java to calculate height automatically
+                                        Image scaledImage = rawImage.getScaledInstance(targetWidth, targetHeight,
+                                                Image.SCALE_SMOOTH);
                                         ImageIcon largeIcon = new ImageIcon(scaledImage);
 
                                         JLabel pic = new JLabel(largeIcon);

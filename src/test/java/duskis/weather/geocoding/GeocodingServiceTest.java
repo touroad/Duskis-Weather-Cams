@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class GeocodingServiceTest {
 
     @Test
-    public void GetLocation() {
+    public void getLocation() {
         OpenWeatherMapService service = new OpenWeatherMapServiceFactory().create();
 
         ApiKey openweathermap = new ApiKey("openweathermap");
