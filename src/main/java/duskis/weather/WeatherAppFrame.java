@@ -1,11 +1,9 @@
 package duskis.weather;
 
+import duskis.weather.weather.OpenWeatherMapService;
+import duskis.weather.weather.OpenWeatherMapServiceFactory;
 import duskis.weather.webcam.WebCamService;
 import duskis.weather.webcam.WebCamServiceFactory;
-import duskis.weather.geocoding.GeocodingService;
-import duskis.weather.geocoding.GeocodingServiceFactory;
-import duskis.weather.weather.WeatherService;
-import duskis.weather.weather.WeatherServiceFactory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -205,10 +203,9 @@ public class WeatherAppFrame extends JFrame {
         JLabel description = new JLabel();
         add(description, constraints);
 
-        GeocodingService service = new GeocodingServiceFactory().create();
-        WeatherService service2 = new WeatherServiceFactory().create();
-        WebCamService service3 = new WebCamServiceFactory().create();
-        WeatherAppController weatherAppController = new WeatherAppController(service, service2, service3,
+        OpenWeatherMapService weatherservice = new OpenWeatherMapServiceFactory().create();
+        WebCamService webcamservice = new WebCamServiceFactory().create();
+        WeatherAppController weatherAppController = new WeatherAppController(weatherservice, webcamservice,
                 name, picture, lat, lon, unitMenu, temp, feelslike, main, description);
 
         searchButton.addActionListener(new ActionListener() {

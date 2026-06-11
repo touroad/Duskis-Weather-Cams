@@ -4,10 +4,7 @@ type in a city and its state anywhere in the US and find out the current tempera
 
 ### Screenshots
 
-![Screen view](screenshots/Screenshot1.png)
-Without AI
-![Screen view](screenshots/Screenshot2.png)
-With AI helping design the frame
+![Screen view](screenshots/Screenshot.png)
 
 #### Links
 

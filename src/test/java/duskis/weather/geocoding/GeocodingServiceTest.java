@@ -1,15 +1,18 @@
 package duskis.weather.geocoding;
 
 import com.andrewoid.apikeys.ApiKey;
-import io.reactivex.rxjava3.core.Single;
 import static org.junit.jupiter.api.Assertions.*;
+
+import duskis.weather.weather.LocationResult;
+import duskis.weather.weather.OpenWeatherMapService;
+import duskis.weather.weather.OpenWeatherMapServiceFactory;
 import org.junit.jupiter.api.Test;
 
 class GeocodingServiceTest {
 
     @Test
-    public void testGetLocation() {
-        GeocodingService service = new GeocodingServiceFactory().create();
+    public void GetLocation() {
+        OpenWeatherMapService service = new OpenWeatherMapServiceFactory().create();
 
         ApiKey openweathermap = new ApiKey("openweathermap");
         String keyString = openweathermap.get();

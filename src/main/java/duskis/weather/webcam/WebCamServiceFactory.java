@@ -7,8 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WebCamServiceFactory {
     public WebCamService create() {
-        // configure Retrofit for the dummyjson website
-        var interceptor = new HttpLoggingInterceptor();
+        //var interceptor = new HttpLoggingInterceptor();
         //interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         //OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
         //dad helped me use the interceptor for debugging
